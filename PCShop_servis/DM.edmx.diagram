@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="50fae1b0a6bb4e2c9ccc6f006d15375b" Name="Diagram1">
+        <EntityTypeShape EntityType="PCShopFINALModel.grad" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PCShopFINALModel.kategorijeProizvoda" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PCShopFINALModel.zaposlenici" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PCShopFINALModel.proizvodjaci" Width="1.5" PointX="2.875" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="PCShopFINALModel.FK__korisnici__adres__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="PCShopFINALModel.FK__proizvodj__adres__3D5E1FD2" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PCShopFINALModel.proizvodi" Width="1.5" PointX="5.25" PointY="6.25" />
+        <AssociationConnector Association="PCShopFINALModel.FK__proizvodi__kateg__403A8C7D" />
+        <AssociationConnector Association="PCShopFINALModel.FK__proizvodi__proiz__412EB0B6" />
+        <EntityTypeShape EntityType="PCShopFINALModel.zaposlenici1" Width="1.5" PointX="3" PointY="11.125" />
+        <AssociationConnector Association="PCShopFINALModel.FK__korisnici__adres__38996AB51" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

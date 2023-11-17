@@ -1,0 +1,1885 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PCShopFINALModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="grad">
+          <Key>
+            <PropertyRef Name="gradID" />
+          </Key>
+          <Property Name="gradID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="kategorijeProizvoda">
+          <Key>
+            <PropertyRef Name="kategorijeProizvodaID" />
+          </Key>
+          <Property Name="kategorijeProizvodaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="proizvodi">
+          <Key>
+            <PropertyRef Name="proizvodiID" />
+          </Key>
+          <Property Name="proizvodiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="opis" Type="nvarchar(max)" />
+          <Property Name="cijena" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="kolicina" Type="int" />
+          <Property Name="sifra" Type="nvarchar" MaxLength="20" />
+          <Property Name="kategorijaID" Type="int" Nullable="false" />
+          <Property Name="proizvodjacID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="proizvodjaci">
+          <Key>
+            <PropertyRef Name="proizvodjaciID" />
+          </Key>
+          <Property Name="proizvodjaciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="zaposlenici">
+          <Key>
+            <PropertyRef Name="korisniciID" />
+          </Key>
+          <Property Name="korisniciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ime" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="prezime" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="datumRodjenja" Type="date" />
+          <Property Name="korisnickoIme" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="brojTelefona" Type="nvarchar" MaxLength="20" />
+          <Property Name="mail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="lozinka" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="adresaID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__korisnici__adres__38996AB5">
+          <End Role="grad" Type="Self.grad" Multiplicity="1" />
+          <End Role="zaposlenici" Type="Self.zaposlenici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grad">
+              <PropertyRef Name="gradID" />
+            </Principal>
+            <Dependent Role="zaposlenici">
+              <PropertyRef Name="adresaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__proizvodi__kateg__403A8C7D">
+          <End Role="kategorijeProizvoda" Type="Self.kategorijeProizvoda" Multiplicity="1" />
+          <End Role="proizvodi" Type="Self.proizvodi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kategorijeProizvoda">
+              <PropertyRef Name="kategorijeProizvodaID" />
+            </Principal>
+            <Dependent Role="proizvodi">
+              <PropertyRef Name="kategorijaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__proizvodi__proiz__412EB0B6">
+          <End Role="proizvodjaci" Type="Self.proizvodjaci" Multiplicity="1" />
+          <End Role="proizvodi" Type="Self.proizvodi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proizvodjaci">
+              <PropertyRef Name="proizvodjaciID" />
+            </Principal>
+            <Dependent Role="proizvodi">
+              <PropertyRef Name="proizvodjacID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="pcshop_brisanjeProizvoda" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="proizvodID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pcshop_Cmbx_Proizvodjaci" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_pretraga_CPUCooleri" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_GrafickeKartice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_HDDSSD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_Kablovi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_Kucista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_MaticnePloce" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_Mikrofoni" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_Misevi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_Mobiteli" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_Monitori" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_Napojne" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_Procesori" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_Racunari" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_Slusalice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_Tastature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_Televizori" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretraga_Zvucnici" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretragaPoNazivu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_pretragaRAM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="pcshop_prikaz_CPUCooleri" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_GrafickeKartice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_HDDSSD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_Kablovi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_Kucista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_MaticnePloce" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_Mikrofoni" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_Misevi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_Mobiteli" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_Monitori" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_Napojne" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_Procesori" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_Racunari" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_RAM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_Slusalice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_Tastature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_Televizori" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_prikaz_Zvucnici" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pcshop_proizvodi_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+          <Parameter Name="opis" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="cijena" Type="decimal" Mode="In" />
+          <Parameter Name="kolicina" Type="int" Mode="In" />
+          <Parameter Name="sifra" Type="nvarchar" Mode="In" />
+          <Parameter Name="kategorijaID" Type="int" Mode="In" />
+          <Parameter Name="proizvodjacID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pcshop_ProizvodiByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pcshop_updateProizvoda" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="proizvodiID" Type="int" Mode="In" />
+          <Parameter Name="naziv" Type="nvarchar" Mode="In" />
+          <Parameter Name="opis" Type="nvarchar" Mode="In" />
+          <Parameter Name="cijena" Type="decimal" Mode="In" />
+          <Parameter Name="kolicina" Type="int" Mode="In" />
+          <Parameter Name="sifra" Type="nvarchar" Mode="In" />
+          <Parameter Name="kategorijaID" Type="int" Mode="In" />
+          <Parameter Name="proizvodjacID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="prijavaZaposlenika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="korisnickoIme" Type="nvarchar" Mode="In" />
+          <Parameter Name="lozinka" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="prikazGradaCmbx" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="prikazZaposlenikaGrid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ZaposleniciByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ZaposleniciByID2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="zaposleniciDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="korisniciID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="zaposleniciInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ime" Type="nvarchar" Mode="In" />
+          <Parameter Name="prezime" Type="nvarchar" Mode="In" />
+          <Parameter Name="datumRodjenja" Type="date" Mode="In" />
+          <Parameter Name="korisnickoIme" Type="nvarchar" Mode="In" />
+          <Parameter Name="brojTelefona" Type="nvarchar" Mode="In" />
+          <Parameter Name="mail" Type="nvarchar" Mode="In" />
+          <Parameter Name="lozinka" Type="nvarchar" Mode="In" />
+          <Parameter Name="adresaID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="zaposleniciUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="korisniciID" Type="int" Mode="In" />
+          <Parameter Name="ime" Type="nvarchar" Mode="In" />
+          <Parameter Name="prezime" Type="nvarchar" Mode="In" />
+          <Parameter Name="datumRodjenja" Type="date" Mode="In" />
+          <Parameter Name="korisnickoIme" Type="nvarchar" Mode="In" />
+          <Parameter Name="brojTelefona" Type="nvarchar" Mode="In" />
+          <Parameter Name="mail" Type="nvarchar" Mode="In" />
+          <Parameter Name="lozinka" Type="nvarchar" Mode="In" />
+          <Parameter Name="adresaID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="zaposlenikByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="zaposlenikByID2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="PCShopFINALModelStoreContainer">
+          <EntitySet Name="grad" EntityType="Self.grad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="kategorijeProizvoda" EntityType="Self.kategorijeProizvoda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="proizvodi" EntityType="Self.proizvodi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="proizvodjaci" EntityType="Self.proizvodjaci" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zaposlenici" EntityType="Self.zaposlenici" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__korisnici__adres__38996AB5" Association="Self.FK__korisnici__adres__38996AB5">
+            <End Role="grad" EntitySet="grad" />
+            <End Role="zaposlenici" EntitySet="zaposlenici" />
+          </AssociationSet>
+          <AssociationSet Name="FK__proizvodi__kateg__403A8C7D" Association="Self.FK__proizvodi__kateg__403A8C7D">
+            <End Role="kategorijeProizvoda" EntitySet="kategorijeProizvoda" />
+            <End Role="proizvodi" EntitySet="proizvodi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__proizvodi__proiz__412EB0B6" Association="Self.FK__proizvodi__proiz__412EB0B6">
+            <End Role="proizvodjaci" EntitySet="proizvodjaci" />
+            <End Role="proizvodi" EntitySet="proizvodi" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PCShopFINALModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="grad">
+          <Key>
+            <PropertyRef Name="gradID" />
+          </Key>
+          <Property Name="gradID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="korisnici" Relationship="Self.FK__korisnici__adres__38996AB5" FromRole="grad" ToRole="korisnici" />
+          <NavigationProperty Name="proizvodjaci" Relationship="Self.FK__proizvodj__adres__3D5E1FD2" FromRole="grad" ToRole="proizvodjaci" />
+          <NavigationProperty Name="zaposlenici" Relationship="PCShopFINALModel.FK__korisnici__adres__38996AB51" FromRole="grad" ToRole="zaposlenici1" />
+        </EntityType>
+        <EntityType Name="kategorijeProizvoda">
+          <Key>
+            <PropertyRef Name="kategorijeProizvodaID" />
+          </Key>
+          <Property Name="kategorijeProizvodaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="proizvodi" Relationship="PCShopFINALModel.FK__proizvodi__kateg__403A8C7D" FromRole="kategorijeProizvoda" ToRole="proizvodi" />
+        </EntityType>
+        <EntityType Name="zaposlenici">
+          <Key>
+            <PropertyRef Name="korisniciID" />
+          </Key>
+          <Property Name="korisniciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="prezime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="datumRodjenja" Type="DateTime" Precision="0" />
+          <Property Name="korisnickoIme" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="brojTelefona" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lozinka" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adresaID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="grad" Relationship="Self.FK__korisnici__adres__38996AB5" FromRole="korisnici" ToRole="grad" />
+        </EntityType>
+        <EntityType Name="proizvodjaci">
+          <Key>
+            <PropertyRef Name="proizvodjaciID" />
+          </Key>
+          <Property Name="proizvodjaciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="kontaktTel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="adresaID" Type="Int32" />
+          <NavigationProperty Name="grad" Relationship="Self.FK__proizvodj__adres__3D5E1FD2" FromRole="proizvodjaci" ToRole="grad" />
+          <NavigationProperty Name="proizvodi" Relationship="PCShopFINALModel.FK__proizvodi__proiz__412EB0B6" FromRole="proizvodjaci" ToRole="proizvodi" />
+        </EntityType>
+        <Association Name="FK__korisnici__adres__38996AB5">
+          <End Role="grad" Type="Self.grad" Multiplicity="1" />
+          <End Role="korisnici" Type="PCShopFINALModel.zaposlenici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grad">
+              <PropertyRef Name="gradID" />
+            </Principal>
+            <Dependent Role="korisnici">
+              <PropertyRef Name="adresaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__proizvodj__adres__3D5E1FD2">
+          <End Role="grad" Type="Self.grad" Multiplicity="0..1" />
+          <End Role="proizvodjaci" Type="Self.proizvodjaci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grad">
+              <PropertyRef Name="gradID" />
+            </Principal>
+            <Dependent Role="proizvodjaci">
+              <PropertyRef Name="adresaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PCShopFINALEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="grad" EntityType="Self.grad" />
+          <EntitySet Name="kategorijeProizvoda" EntityType="Self.kategorijeProizvoda" />
+          <EntitySet Name="korisnici" EntityType="PCShopFINALModel.zaposlenici" />
+          <EntitySet Name="proizvodjaci" EntityType="Self.proizvodjaci" />
+          <AssociationSet Name="FK__korisnici__adres__38996AB5" Association="Self.FK__korisnici__adres__38996AB5">
+            <End Role="grad" EntitySet="grad" />
+            <End Role="korisnici" EntitySet="korisnici" />
+          </AssociationSet>
+          <AssociationSet Name="FK__proizvodj__adres__3D5E1FD2" Association="Self.FK__proizvodj__adres__3D5E1FD2">
+            <End Role="grad" EntitySet="grad" />
+            <End Role="proizvodjaci" EntitySet="proizvodjaci" />
+          </AssociationSet>
+          <FunctionImport Name="pcshop_pretragaPoNazivu" ReturnType="Collection(PCShopFINALModel.pcshop_pretragaPoNazivu_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_CPUCooleri" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_CPUCooleri_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_GrafickeKartice" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_GrafickeKartice_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_HDDSSD" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_HDDSSD_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_Kablovi" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_Kablovi_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_Kucista" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_Kucista_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_MaticnePloce" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_MaticnePloce_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_Mikrofoni" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_Mikrofoni_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_Misevi" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_Misevi_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_Mobiteli" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_Mobiteli_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_Monitori" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_Monitori_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_Napojne" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_Napojne_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_Procesori" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_Procesori_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_Racunari" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_Racunari_Result)">
+            <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_Slusalice" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_Slusalice_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_Tastature" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_Tastature_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_Televizori" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_Televizori_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_Zvucnici" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_Zvucnici_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretragaRAM" ReturnType="Collection(PCShopFINALModel.pcshop_pretragaRAM_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_pretraga_Racunari1" ReturnType="Collection(PCShopFINALModel.pcshop_pretraga_Racunari1_Result)">
+          <Parameter Name="naziv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_Cmbx_Proizvodjaci" ReturnType="Collection(PCShopFINALModel.pcshop_Cmbx_Proizvodjaci_Result)" />
+          <FunctionImport Name="pcshop_proizvodi_Insert">
+            <Parameter Name="naziv" Mode="In" Type="String" />
+            <Parameter Name="opis" Mode="In" Type="String" />
+            <Parameter Name="cijena" Mode="In" Type="Decimal" />
+            <Parameter Name="kolicina" Mode="In" Type="Int32" />
+            <Parameter Name="sifra" Mode="In" Type="String" />
+            <Parameter Name="kategorijaID" Mode="In" Type="Int32" />
+            <Parameter Name="proizvodjacID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_brisanjeProizvoda">
+          <Parameter Name="proizvodID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_insertProizvoda">
+            <Parameter Name="proizvodiID" Mode="In" Type="Int32" />
+            <Parameter Name="naziv" Mode="In" Type="String" />
+            <Parameter Name="opis" Mode="In" Type="String" />
+            <Parameter Name="cijena" Mode="In" Type="Decimal" />
+            <Parameter Name="kolicina" Mode="In" Type="Int32" />
+            <Parameter Name="sifra" Mode="In" Type="String" />
+            <Parameter Name="kategorijaID" Mode="In" Type="Int32" />
+            <Parameter Name="proizvodjacID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_ProizvodiByID" ReturnType="Collection(PCShopFINALModel.pcshop_ProizvodiByID_Result)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_ProizvodiByID1">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_updateProizvoda">
+            <Parameter Name="proizvodiID" Mode="In" Type="Int32" />
+            <Parameter Name="naziv" Mode="In" Type="String" />
+            <Parameter Name="opis" Mode="In" Type="String" />
+            <Parameter Name="cijena" Mode="In" Type="Decimal" />
+            <Parameter Name="kolicina" Mode="In" Type="Int32" />
+            <Parameter Name="sifra" Mode="In" Type="String" />
+            <Parameter Name="kategorijaID" Mode="In" Type="Int32" />
+            <Parameter Name="proizvodjacID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="proizvodi" EntityType="PCShopFINALModel.proizvodi" />
+          <AssociationSet Name="FK__proizvodi__kateg__403A8C7D" Association="PCShopFINALModel.FK__proizvodi__kateg__403A8C7D">
+            <End Role="kategorijeProizvoda" EntitySet="kategorijeProizvoda" />
+            <End Role="proizvodi" EntitySet="proizvodi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__proizvodi__proiz__412EB0B6" Association="PCShopFINALModel.FK__proizvodi__proiz__412EB0B6">
+            <End Role="proizvodjaci" EntitySet="proizvodjaci" />
+            <End Role="proizvodi" EntitySet="proizvodi" />
+          </AssociationSet>
+          <FunctionImport Name="pcshop_ProizvodiByID2" EntitySet="proizvodi" ReturnType="Collection(PCShopFINALModel.proizvodi)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pcshop_prikaz_CPUCooleri" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_CPUCooleri_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_GrafickeKartice" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_GrafickeKartice_Result2)" />
+          <FunctionImport Name="pcshop_prikaz_HDDSSD" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_HDDSSD_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_Kablovi" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_Kablovi_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_Kucista" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_Kucista_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_MaticnePloce" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_MaticnePloce_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_Mikrofoni" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_Mikrofoni_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_Misevi" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_Misevi_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_Mobiteli" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_Mobiteli_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_Monitori" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_Monitori_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_Napojne" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_Napojne_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_Procesori" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_Procesori_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_Racunari" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_Racunari_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_RAM" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_RAM_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_Slusalice" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_Slusalice_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_Tastature" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_Tastature_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_Televizori" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_Televizori_Result1)" />
+          <FunctionImport Name="pcshop_prikaz_Zvucnici" ReturnType="Collection(PCShopFINALModel.pcshop_prikaz_Zvucnici_Result1)" />
+          <EntitySet Name="zaposlenici1Set" EntityType="PCShopFINALModel.zaposlenici1" />
+          <AssociationSet Name="FK__korisnici__adres__38996AB51" Association="PCShopFINALModel.FK__korisnici__adres__38996AB51">
+            <End Role="grad" EntitySet="grad" />
+            <End Role="zaposlenici1" EntitySet="zaposlenici1Set" />
+          </AssociationSet>
+          <FunctionImport Name="prijavaZaposlenika" ReturnType="Collection(PCShopFINALModel.prijavaZaposlenika_Result)">
+            <Parameter Name="korisnickoIme" Mode="In" Type="String" />
+            <Parameter Name="lozinka" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="zaposleniciDelete">
+          <Parameter Name="korisniciID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="zaposleniciInsert">
+            <Parameter Name="ime" Mode="In" Type="String" />
+            <Parameter Name="prezime" Mode="In" Type="String" />
+            <Parameter Name="datumRodjenja" Mode="In" Type="DateTime" />
+            <Parameter Name="korisnickoIme" Mode="In" Type="String" />
+            <Parameter Name="brojTelefona" Mode="In" Type="String" />
+            <Parameter Name="mail" Mode="In" Type="String" />
+            <Parameter Name="lozinka" Mode="In" Type="String" />
+            <Parameter Name="adresaID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="zaposleniciUpdate">
+            <Parameter Name="korisniciID" Mode="In" Type="Int32" />
+            <Parameter Name="ime" Mode="In" Type="String" />
+            <Parameter Name="prezime" Mode="In" Type="String" />
+            <Parameter Name="datumRodjenja" Mode="In" Type="DateTime" />
+            <Parameter Name="korisnickoIme" Mode="In" Type="String" />
+            <Parameter Name="brojTelefona" Mode="In" Type="String" />
+            <Parameter Name="mail" Mode="In" Type="String" />
+            <Parameter Name="lozinka" Mode="In" Type="String" />
+            <Parameter Name="adresaID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="prijavaZaposlenika1" EntitySet="korisnici" ReturnType="Collection(PCShopFINALModel.zaposlenici)">
+            <Parameter Name="korisnickoIme" Mode="In" Type="String" />
+            <Parameter Name="lozinka" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="prikazGradaCmbx" ReturnType="Collection(PCShopFINALModel.prikazGradaCmbx_Result)" />
+          <FunctionImport Name="prikazZaposlenikaGrid" ReturnType="Collection(PCShopFINALModel.prikazZaposlenikaGrid_Result)" />
+          <FunctionImport Name="zaposlenikByID" EntitySet="korisnici" ReturnType="Collection(PCShopFINALModel.zaposlenici)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="zaposlenikByID2" EntitySet="korisnici" ReturnType="Collection(PCShopFINALModel.zaposlenici)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ZaposleniciByID" EntitySet="korisnici" ReturnType="Collection(PCShopFINALModel.zaposlenici)">
+          <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ZaposleniciByID2" EntitySet="korisnici" ReturnType="Collection(PCShopFINALModel.zaposlenici)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Racunari_prikaz2_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="naziv1" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_CPUCooleri_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_GrafickeKartice_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_HDDSSD_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Kablovi_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Kucista_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_MaticnePloce_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Mikrofoni_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Misevi_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Mobiteli_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Monitori_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Napojne_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Procesori_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Racunari_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_RAM_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Slusalice_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Tastature_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Televizori_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Zvucnici_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretragaPoNazivu_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_CPUCooleri_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_GrafickeKartice_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_HDDSSD_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_Kablovi_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_Kucista_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_MaticnePloce_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_Mikrofoni_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_Misevi_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_Mobiteli_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_Monitori_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_Napojne_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_Procesori_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_Racunari_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_Slusalice_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_Tastature_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_Televizori_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_Zvucnici_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretragaRAM_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_pretraga_Racunari1_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Racunari1_Result">
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_proizvodjaciCmbx1_Result">
+          <Property Type="Int32" Name="proizvodjaciID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_proizvodjaciCmbxPrikaz_Result">
+          <Property Type="Int32" Name="proizvodjaciID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_Cmbx_Proizvodjaci_Result">
+          <Property Type="Int32" Name="proizvodjaciID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_ProizvodiByID_Result">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="kategorijaID" Nullable="false" />
+          <Property Type="Int32" Name="proizvodjacID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="proizvodi">
+          <Key>
+            <PropertyRef Name="proizvodiID" />
+          </Key>
+          <Property Name="proizvodiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="opis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cijena" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="kolicina" Type="Int32" />
+          <Property Name="sifra" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="kategorijaID" Type="Int32" Nullable="false" />
+          <Property Name="proizvodjacID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="kategorijeProizvoda" Relationship="PCShopFINALModel.FK__proizvodi__kateg__403A8C7D" FromRole="proizvodi" ToRole="kategorijeProizvoda" />
+          <NavigationProperty Name="proizvodjaci" Relationship="PCShopFINALModel.FK__proizvodi__proiz__412EB0B6" FromRole="proizvodi" ToRole="proizvodjaci" />
+        </EntityType>
+        <Association Name="FK__proizvodi__kateg__403A8C7D">
+          <End Type="PCShopFINALModel.kategorijeProizvoda" Role="kategorijeProizvoda" Multiplicity="1" />
+          <End Type="PCShopFINALModel.proizvodi" Role="proizvodi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kategorijeProizvoda">
+              <PropertyRef Name="kategorijeProizvodaID" />
+            </Principal>
+            <Dependent Role="proizvodi">
+              <PropertyRef Name="kategorijaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__proizvodi__proiz__412EB0B6">
+          <End Type="PCShopFINALModel.proizvodjaci" Role="proizvodjaci" Multiplicity="1" />
+          <End Type="PCShopFINALModel.proizvodi" Role="proizvodi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proizvodjaci">
+              <PropertyRef Name="proizvodjaciID" />
+            </Principal>
+            <Dependent Role="proizvodi">
+              <PropertyRef Name="proizvodjacID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="pcshop_prikaz_GrafickeKartice_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_CPUCooleri_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_GrafickeKartice_Result2">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_HDDSSD_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Kablovi_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Kucista_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_MaticnePloce_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Mikrofoni_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Misevi_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Mobiteli_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Monitori_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Napojne_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Procesori_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Racunari_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_RAM_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Slusalice_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Tastature_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Televizori_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="pcshop_prikaz_Zvucnici_Result1">
+          <Property Type="Int32" Name="proizvodiID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="opis" Nullable="true" />
+          <Property Type="Decimal" Name="cijena" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="kolicina" Nullable="true" />
+          <Property Type="String" Name="sifra" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Kategorija" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Proizvodjac" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <EntityType Name="zaposlenici1">
+          <Key>
+            <PropertyRef Name="korisniciID" />
+          </Key>
+          <Property Name="korisniciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="prezime" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="datumRodjenja" Type="DateTime" Precision="0" />
+          <Property Name="korisnickoIme" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="brojTelefona" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="mail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lozinka" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="adresaID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="grad" Relationship="PCShopFINALModel.FK__korisnici__adres__38996AB51" FromRole="zaposlenici1" ToRole="grad" />
+        </EntityType>
+        <Association Name="FK__korisnici__adres__38996AB51">
+          <End Type="PCShopFINALModel.grad" Role="grad" Multiplicity="1" />
+          <End Type="PCShopFINALModel.zaposlenici1" Role="zaposlenici1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grad">
+              <PropertyRef Name="gradID" />
+            </Principal>
+            <Dependent Role="zaposlenici1">
+              <PropertyRef Name="adresaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="prijavaZaposlenika_Result">
+          <Property Type="Int32" Name="korisniciID" Nullable="false" />
+          <Property Type="String" Name="ime" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="prezime" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="datumRodjenja" Nullable="true" />
+          <Property Type="String" Name="korisnickoIme" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="brojTelefona" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="mail" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="lozinka" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="adresaID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="prikazGradaCmbx_Result">
+          <Property Type="Int32" Name="gradID" Nullable="false" />
+          <Property Type="String" Name="naziv" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="prikazZaposlenikaGrid_Result">
+          <Property Type="Int32" Name="korisniciID" Nullable="false" />
+          <Property Type="String" Name="ime" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="prezime" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="datumRodjenja" Nullable="true" />
+          <Property Type="String" Name="korisnickoIme" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="lozinka" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="brojTelefona" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="mail" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="naziv" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="zaposlenikByID_Result">
+          <Property Type="Int32" Name="korisniciID" Nullable="false" />
+          <Property Type="String" Name="ime" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="prezime" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="datumRodjenja" Nullable="true" />
+          <Property Type="String" Name="korisnickoIme" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="lozinka" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="brojTelefona" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="mail" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="naziv" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="zaposlenikByID2_Result">
+          <Property Type="Int32" Name="korisniciID" Nullable="false" />
+          <Property Type="String" Name="ime" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="prezime" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="datumRodjenja" Nullable="true" />
+          <Property Type="String" Name="korisnickoIme" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="lozinka" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="brojTelefona" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="mail" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="nazivGrada" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="ZaposleniciByID_Result">
+          <Property Type="Int32" Name="korisniciID" Nullable="false" />
+          <Property Type="String" Name="ime" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="prezime" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="datumRodjenja" Nullable="true" />
+          <Property Type="String" Name="korisnickoIme" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="brojTelefona" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="mail" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="lozinka" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="adresaID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ZaposleniciByID2_Result">
+          <Property Type="Int32" Name="korisniciID" Nullable="false" />
+          <Property Type="String" Name="ime" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="prezime" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="datumRodjenja" Nullable="true" />
+          <Property Type="String" Name="korisnickoIme" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="brojTelefona" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="mail" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="lozinka" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="adresaID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PCShopFINALModelStoreContainer" CdmEntityContainer="PCShopFINALEntities">
+          <EntitySetMapping Name="grad">
+            <EntityTypeMapping TypeName="PCShopFINALModel.grad">
+              <MappingFragment StoreEntitySet="grad">
+                <ScalarProperty Name="gradID" ColumnName="gradID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kategorijeProizvoda">
+            <EntityTypeMapping TypeName="PCShopFINALModel.kategorijeProizvoda">
+              <MappingFragment StoreEntitySet="kategorijeProizvoda">
+                <ScalarProperty Name="kategorijeProizvodaID" ColumnName="kategorijeProizvodaID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="proizvodjaci">
+            <EntityTypeMapping TypeName="PCShopFINALModel.proizvodjaci">
+              <MappingFragment StoreEntitySet="proizvodjaci">
+                <ScalarProperty Name="proizvodjaciID" ColumnName="proizvodjaciID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretragaPoNazivu" FunctionName="PCShopFINALModel.Store.pcshop_pretragaPoNazivu">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretragaPoNazivu_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_CPUCooleri" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_CPUCooleri">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_CPUCooleri_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_GrafickeKartice" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_GrafickeKartice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_GrafickeKartice_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_HDDSSD" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_HDDSSD">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_HDDSSD_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_Kablovi" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_Kablovi">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_Kablovi_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_Kucista" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_Kucista">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_Kucista_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_MaticnePloce" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_MaticnePloce">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_MaticnePloce_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_Mikrofoni" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_Mikrofoni">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_Mikrofoni_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_Misevi" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_Misevi">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_Misevi_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_Mobiteli" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_Mobiteli">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_Mobiteli_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_Monitori" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_Monitori">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_Monitori_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_Napojne" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_Napojne">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_Napojne_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_Procesori" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_Procesori">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_Procesori_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_Slusalice" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_Slusalice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_Slusalice_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_Tastature" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_Tastature">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_Tastature_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_Televizori" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_Televizori">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_Televizori_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_Zvucnici" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_Zvucnici">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_Zvucnici_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretragaRAM" FunctionName="PCShopFINALModel.Store.pcshop_pretragaRAM">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretragaRAM_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_pretraga_Racunari1" FunctionName="PCShopFINALModel.Store.pcshop_pretraga_Racunari">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_pretraga_Racunari1_Result">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_Cmbx_Proizvodjaci" FunctionName="PCShopFINALModel.Store.pcshop_Cmbx_Proizvodjaci">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_Cmbx_Proizvodjaci_Result">
+                <ScalarProperty Name="proizvodjaciID" ColumnName="proizvodjaciID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_proizvodi_Insert" FunctionName="PCShopFINALModel.Store.pcshop_proizvodi_Insert" />
+          <FunctionImportMapping FunctionImportName="pcshop_brisanjeProizvoda" FunctionName="PCShopFINALModel.Store.pcshop_brisanjeProizvoda" />
+          <FunctionImportMapping FunctionImportName="pcshop_ProizvodiByID" FunctionName="PCShopFINALModel.Store.pcshop_ProizvodiByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_ProizvodiByID_Result">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="kategorijaID" ColumnName="kategorijaID" />
+                <ScalarProperty Name="proizvodjacID" ColumnName="proizvodjacID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_ProizvodiByID1" FunctionName="PCShopFINALModel.Store.pcshop_ProizvodiByID" />
+          <FunctionImportMapping FunctionImportName="pcshop_updateProizvoda" FunctionName="PCShopFINALModel.Store.pcshop_updateProizvoda" />
+          <EntitySetMapping Name="proizvodi">
+            <EntityTypeMapping TypeName="PCShopFINALModel.proizvodi">
+              <MappingFragment StoreEntitySet="proizvodi">
+                <ScalarProperty Name="proizvodjacID" ColumnName="proizvodjacID" />
+                <ScalarProperty Name="kategorijaID" ColumnName="kategorijaID" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_ProizvodiByID2" FunctionName="PCShopFINALModel.Store.pcshop_ProizvodiByID" />
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_CPUCooleri" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_CPUCooleri">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_CPUCooleri_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_GrafickeKartice" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_GrafickeKartice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_GrafickeKartice_Result2">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_HDDSSD" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_HDDSSD">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_HDDSSD_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_Kablovi" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_Kablovi">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_Kablovi_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_Kucista" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_Kucista">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_Kucista_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_MaticnePloce" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_MaticnePloce">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_MaticnePloce_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_Mikrofoni" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_Mikrofoni">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_Mikrofoni_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_Misevi" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_Misevi">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_Misevi_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_Mobiteli" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_Mobiteli">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_Mobiteli_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_Monitori" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_Monitori">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_Monitori_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_Napojne" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_Napojne">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_Napojne_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_Procesori" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_Procesori">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_Procesori_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_Racunari" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_Racunari">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_Racunari_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_RAM" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_RAM">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_RAM_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_Slusalice" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_Slusalice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_Slusalice_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_Tastature" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_Tastature">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_Tastature_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_Televizori" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_Televizori">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_Televizori_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pcshop_prikaz_Zvucnici" FunctionName="PCShopFINALModel.Store.pcshop_prikaz_Zvucnici">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.pcshop_prikaz_Zvucnici_Result1">
+                <ScalarProperty Name="proizvodiID" ColumnName="proizvodiID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="Kategorija" ColumnName="Kategorija" />
+                <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="zaposlenici1Set">
+            <EntityTypeMapping TypeName="PCShopFINALModel.zaposlenici1">
+              <MappingFragment StoreEntitySet="zaposlenici">
+                <ScalarProperty Name="adresaID" ColumnName="adresaID" />
+                <ScalarProperty Name="lozinka" ColumnName="lozinka" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="brojTelefona" ColumnName="brojTelefona" />
+                <ScalarProperty Name="korisnickoIme" ColumnName="korisnickoIme" />
+                <ScalarProperty Name="datumRodjenja" ColumnName="datumRodjenja" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="korisniciID" ColumnName="korisniciID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="prijavaZaposlenika" FunctionName="PCShopFINALModel.Store.prijavaZaposlenika">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.prijavaZaposlenika_Result">
+                <ScalarProperty Name="korisniciID" ColumnName="korisniciID" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="datumRodjenja" ColumnName="datumRodjenja" />
+                <ScalarProperty Name="korisnickoIme" ColumnName="korisnickoIme" />
+                <ScalarProperty Name="brojTelefona" ColumnName="brojTelefona" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="lozinka" ColumnName="lozinka" />
+                <ScalarProperty Name="adresaID" ColumnName="adresaID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="zaposleniciDelete" FunctionName="PCShopFINALModel.Store.zaposleniciDelete" />
+          <FunctionImportMapping FunctionImportName="zaposleniciInsert" FunctionName="PCShopFINALModel.Store.zaposleniciInsert" />
+          <FunctionImportMapping FunctionImportName="zaposleniciUpdate" FunctionName="PCShopFINALModel.Store.zaposleniciUpdate" />
+          <FunctionImportMapping FunctionImportName="prijavaZaposlenika1" FunctionName="PCShopFINALModel.Store.prijavaZaposlenika" />
+          <FunctionImportMapping FunctionImportName="prikazGradaCmbx" FunctionName="PCShopFINALModel.Store.prikazGradaCmbx">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.prikazGradaCmbx_Result">
+                <ScalarProperty Name="gradID" ColumnName="gradID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="prikazZaposlenikaGrid" FunctionName="PCShopFINALModel.Store.prikazZaposlenikaGrid">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PCShopFINALModel.prikazZaposlenikaGrid_Result">
+                <ScalarProperty Name="korisniciID" ColumnName="korisniciID" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="datumRodjenja" ColumnName="datumRodjenja" />
+                <ScalarProperty Name="korisnickoIme" ColumnName="korisnickoIme" />
+                <ScalarProperty Name="lozinka" ColumnName="lozinka" />
+                <ScalarProperty Name="brojTelefona" ColumnName="brojTelefona" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="zaposlenikByID" FunctionName="PCShopFINALModel.Store.zaposlenikByID">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="zaposlenikByID2" FunctionName="PCShopFINALModel.Store.zaposlenikByID2">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ZaposleniciByID" FunctionName="PCShopFINALModel.Store.ZaposleniciByID">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ZaposleniciByID2" FunctionName="PCShopFINALModel.Store.ZaposleniciByID2">
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

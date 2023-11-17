@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCSHOPFINAL", "PCSHOPFINAL\PCSHOPFINAL.csproj", "{A3AEE661-64B7-4DC6-A848-D040B00DB731}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCShop_servis", "PCShop_servis\PCShop_servis.csproj", "{ED615EAD-0383-4079-A338-ACC91F4F3171}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3AEE661-64B7-4DC6-A848-D040B00DB731}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3AEE661-64B7-4DC6-A848-D040B00DB731}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3AEE661-64B7-4DC6-A848-D040B00DB731}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3AEE661-64B7-4DC6-A848-D040B00DB731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED615EAD-0383-4079-A338-ACC91F4F3171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED615EAD-0383-4079-A338-ACC91F4F3171}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED615EAD-0383-4079-A338-ACC91F4F3171}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED615EAD-0383-4079-A338-ACC91F4F3171}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE78ECD8-BC2E-43AB-88A1-92BFAE3DAF9E}
+	EndGlobalSection
+EndGlobal

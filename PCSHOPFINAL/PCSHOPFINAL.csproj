@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A3AEE661-64B7-4DC6-A848-D040B00DB731}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>PCSHOPFINAL</RootNamespace>
+    <AssemblyName>PCSHOPFINAL</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\CPUCooleriPrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\CPUCooleriPrikaz.Designer.cs">
+      <DependentUpon>CPUCooleriPrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\GrafickePrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\GrafickePrikaz.Designer.cs">
+      <DependentUpon>GrafickePrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\HDDSSDPrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\HDDSSDPrikaz.Designer.cs">
+      <DependentUpon>HDDSSDPrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\KabloviPrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\KabloviPrikaz.Designer.cs">
+      <DependentUpon>KabloviPrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\KucistaPrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\KucistaPrikaz.Designer.cs">
+      <DependentUpon>KucistaPrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\MaticnePrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\MaticnePrikaz.Designer.cs">
+      <DependentUpon>MaticnePrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\MikrofoniPrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\MikrofoniPrikaz.Designer.cs">
+      <DependentUpon>MikrofoniPrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\MiseviPrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\MiseviPrikaz.Designer.cs">
+      <DependentUpon>MiseviPrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\MobiteliPrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\MobiteliPrikaz.Designer.cs">
+      <DependentUpon>MobiteliPrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\MonitoriPrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\MonitoriPrikaz.Designer.cs">
+      <DependentUpon>MonitoriPrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\NapojnePrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\NapojnePrikaz.Designer.cs">
+      <DependentUpon>NapojnePrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\ProcesoriPrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\ProcesoriPrikaz.Designer.cs">
+      <DependentUpon>ProcesoriPrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\RacunariPrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\RacunariPrikaz.Designer.cs">
+      <DependentUpon>RacunariPrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\RAMPrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\RAMPrikaz.Designer.cs">
+      <DependentUpon>RAMPrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\SlusalicePrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\SlusalicePrikaz.Designer.cs">
+      <DependentUpon>SlusalicePrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\TastaturePrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\TastaturePrikaz.Designer.cs">
+      <DependentUpon>TastaturePrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\TelevizoriPrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\TelevizoriPrikaz.Designer.cs">
+      <DependentUpon>TelevizoriPrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KategorijePrikaz\ZvucniciPrikaz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KategorijePrikaz\ZvucniciPrikaz.Designer.cs">
+      <DependentUpon>ZvucniciPrikaz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OstaleForme\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OstaleForme\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OstaleForme\ONamaForma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OstaleForme\ONamaForma.Designer.cs">
+      <DependentUpon>ONamaForma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OstaleForme\Zaposlenici.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OstaleForme\Zaposlenici.Designer.cs">
+      <DependentUpon>Zaposlenici.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\CPUCooleriPrikaz.resx">
+      <DependentUpon>CPUCooleriPrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\GrafickePrikaz.resx">
+      <DependentUpon>GrafickePrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\HDDSSDPrikaz.resx">
+      <DependentUpon>HDDSSDPrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\KabloviPrikaz.resx">
+      <DependentUpon>KabloviPrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\KucistaPrikaz.resx">
+      <DependentUpon>KucistaPrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\MaticnePrikaz.resx">
+      <DependentUpon>MaticnePrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\MikrofoniPrikaz.resx">
+      <DependentUpon>MikrofoniPrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\MiseviPrikaz.resx">
+      <DependentUpon>MiseviPrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\MobiteliPrikaz.resx">
+      <DependentUpon>MobiteliPrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\MonitoriPrikaz.resx">
+      <DependentUpon>MonitoriPrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\NapojnePrikaz.resx">
+      <DependentUpon>NapojnePrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\ProcesoriPrikaz.resx">
+      <DependentUpon>ProcesoriPrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\RacunariPrikaz.resx">
+      <DependentUpon>RacunariPrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\RAMPrikaz.resx">
+      <DependentUpon>RAMPrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\SlusalicePrikaz.resx">
+      <DependentUpon>SlusalicePrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\TastaturePrikaz.resx">
+      <DependentUpon>TastaturePrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\TelevizoriPrikaz.resx">
+      <DependentUpon>TelevizoriPrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KategorijePrikaz\ZvucniciPrikaz.resx">
+      <DependentUpon>ZvucniciPrikaz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OstaleForme\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OstaleForme\ONamaForma.resx">
+      <DependentUpon>ONamaForma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OstaleForme\Zaposlenici.resx">
+      <DependentUpon>Zaposlenici.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pocetna1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gaming.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gaming1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\komponente.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\laptopi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mobiteli.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\racunari.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\televizori.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PCShop_servis\PCShop_servis.csproj">
+      <Project>{ed615ead-0383-4079-a338-acc91f4f3171}</Project>
+      <Name>PCShop_servis</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\banner-min.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HD-wallpaper-rgb-keyboard-computer-computers-family-gamer-inside-life-logo-notebook-shop-technology.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MIT-Evaluating-Performance_1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Webp.net-resizeimage22222.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hd-wallpaper-rgb-keyboard-comp222222222.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wallpaperflare.com_wallpaper %281%29.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>
